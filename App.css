@@ -1,0 +1,10 @@
+.bg{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.im1{
+  height: 200px;
+  width: 200px;
+}
