@@ -1,12 +1,14 @@
-import { Component} from "react";
+import { useState} from "react";
 import './App.css';
 
-class App extends Component{
-  state={searchInput:'',wikisearch:[]}
-  change1=event=>{
-    this.setState({searchInput:event.target.value})
+const App=()=>{
+ 
+const [searchInput,setsearchinput]=useState('');
+  const [wikisearch,setwikisearch]=useState([])
+ const change1=event=>{
+   setsearchinput(event.target.value)
   }
-  change2=async(event)=>{
+const  change2=async(event)=>{
     if(event.key==='Enter'){
     const {searchInput}=this.state
     const url=`https://apis.ccbp.in/wiki-search?search=${searchInput}`
@@ -17,16 +19,15 @@ class App extends Component{
     const data=await response.json()
     if(response.ok){
       const formatteddata=data.search_results
-      this.setState({wikisearch:formatteddata})
+      setwikisearch(formatteddata)
     }
   }
   }
-  render(){
-    const {searchInput,wikisearch}=this.state
+
     return(
       <div className="bg">
         <img src="https://d2clawv67efefq.cloudfront.net/ccbp-dynamic-webapps/wiki-logo-img.png" alt="wiki" className="im1" />
-        <input type="search" placeholder="Search" value={searchInput} onChange={this.change1} onKeyDown={this.change2}/>
+        <input type="search" placeholder="Search" value={searchInput} onChange={change1} onKeyDown={change2}/>
         {wikisearch.length>0?
         <div>
           {wikisearch.map(each=>(
@@ -40,5 +41,5 @@ class App extends Component{
       </div>
     )
   }
-}
+
 export default App
